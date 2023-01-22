@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from collections import OrderedDict
 from functools import total_ordering
 import re
-from utils import format_text
+from src.utils import format_text
 import warnings
 
 @total_ordering

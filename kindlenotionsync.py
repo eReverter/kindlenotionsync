@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import argparse
-from kindle_parser import Book
-from notion_writer import NotionWriter
+from src.kindle_parser import Book
+from src.notion_writer import NotionWriter
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
