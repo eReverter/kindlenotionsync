@@ -3,3 +3,4 @@ playground.ipynb
 raw_data
 clean_data
 __pycache__
+*.egg-info
