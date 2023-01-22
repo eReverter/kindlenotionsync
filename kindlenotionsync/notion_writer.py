@@ -58,7 +58,7 @@ class NotionWriter():
         url = f'https://api.notion.com/v1/blocks/{parent_id}/children'
         response = requests.patch(url, data=json.dumps(data), headers=self.headers)
 
-        if response.text != 200:
+        if response.status_code != 200:
             warnings.warn(f"Something failed while appending blocks: {response.text}")
             
         return response
