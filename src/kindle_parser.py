@@ -53,7 +53,7 @@ class Book:
                     warnings.warn(f"Well, something failed: {e}")
 
             elif element_class == 'noteText':
-                element_text = element_text.split('Highlight')[0] # Kindle error. noteText has two divs. Only the first is relevant.
+                element_text = element_text.split('\n')[0] # Kindle error. noteText has two divs. Only the first is relevant.
                 if self.type_of_last_highlight == 'Highlight':
                     self.current_highlight.text = element_text
 
@@ -73,7 +73,7 @@ class Book:
                 self.ignored_elements.add(element_class)
 
     def _get_element_text(self, element):
-        raw_text = element.get_text(strip=True)
+        raw_text = element.get_text().strip()
         if raw_text:
             element_text = format_text(raw_text)
         else:
