@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 '''
-
+Auxiliary functions.
 '''
 import unicodedata
 

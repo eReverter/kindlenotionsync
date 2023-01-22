@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 '''
-
+Parser for HTML files exported from Kindle <Notes and Highlights>.
+Transcripts all highlights and notes into a Book object.
+A Book is a dictonary, where each key is a chapter, and the values are the hihglights and notes of said chapter.
 '''
 from bs4 import BeautifulSoup
 from collections import OrderedDict

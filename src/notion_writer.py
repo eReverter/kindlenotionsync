@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 '''
-
+Writer (to Notion) for the custom Book class.
+Iterates through the chapters and adds the notes into the provided Notion page.
 '''
 import json
 import requests

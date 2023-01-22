@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 '''
-
+Parse the <Notes and Highlights> from Kindle exported HTML.
+Write data to the provided Notion page.
 '''
 import argparse
 from src.kindle_parser import Book
