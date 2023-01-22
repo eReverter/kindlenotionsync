@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+'''
+
+'''
 import unicodedata
 
 def format_text(text: str) -> str:
