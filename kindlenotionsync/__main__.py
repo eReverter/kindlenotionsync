@@ -4,8 +4,8 @@ Parse the <Notes and Highlights> from Kindle exported HTML.
 Write data to the provided Notion page.
 '''
 import argparse
-from kindle_parser import Book
-from notion_writer import NotionWriter
+from kindlenotionsync.kindle_parser import Book
+from kindlenotionsync.notion_writer import NotionWriter
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
