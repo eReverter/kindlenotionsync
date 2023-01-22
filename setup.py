@@ -23,7 +23,7 @@ setup(
     ],
     packages=find_packages(),
     install_requires=requirements,
-    python_requires=">=3.10",
+    python_requires=">=3.9",
     entry_points={
         "console_scripts": [
             "kindlenotionsync = kindlenotionsync.__main__:main",
