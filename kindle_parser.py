@@ -5,11 +5,7 @@
 from bs4 import BeautifulSoup
 from collections import OrderedDict
 from functools import total_ordering
-import json
 import re
-import requests
-import time
-from tqdm import tqdm
 from utils import format_text
 import warnings
 
@@ -49,7 +45,6 @@ class Book:
         for element in elements:
             element_class = element['class'][0]
             element_text = self._get_element_text(element)
-            # element_text = format_text(element.get_text().strip().replace(u' \xa0', ''))
 
             if element_class == 'noteHeading':
                 try:
@@ -113,106 +108,7 @@ class Book:
         elif self.type_of_last_highlight == 'Note' and not current_chapter_has_highlights:
             warnings.warn(f"Note '{element_text}' in location '{location}' before any highlight in the chapter.")
 
-        # Create the current Highlight
+        # Create the current Highlight even if type is not Highlight
         if self.current_highlight is None:
             self.current_highlight = Highlight(loc=location, metadata=header)
             self.chapters[current_chapter].append(self.current_highlight)
-
-class NotionWriter():
-    def __init__(self, token=''):
-        self.token = token
-        self._update_headers()
-    
-    # Util methods
-
-    def _load_credentials_from_json(self, file='credentials.json'):
-        with open(file) as fp:
-            credentials = json.load(fp)
-            self.token = credentials['credentials']['token']
-        self._update_headers()
-
-    def _update_headers(self):
-        self.headers = {
-            "Authorization": "Bearer " + self.token,
-            "Content-Type": "application/json",
-            "Notion-Version": "2022-06-28"
-        }
-
-    # Main method
-
-    def write_book_notes(self, book, page_id):
-
-        for chapter in tqdm(book.chapters):
-            header = self._format_header(content=chapter, type='3')
-            _ = self._append_block(header, parent_id=page_id)
-            toggle = self._format_toggle(content='Book Notes')
-            response = self._append_block(toggle, parent_id=page_id)
-            current_toggle_id = json.loads(response.text)['results'][0]['id']
-            for note in tqdm(book.chapters[chapter], leave=False):
-                highlight = self._format_paragraph(note.text)
-                _ = self._append_block(highlight, parent_id=current_toggle_id)
-
-                if note.note:
-                    note = self._format_paragraph(note.note, color='yellow_background')
-                    _ = self._append_block(note, parent_id=current_toggle_id)
-
-                time.sleep(.5)
-
-
-    # Set of blocks that can be generated for Notion. Could be 
-    # contained in one function but having one for each type 
-    # seems easier to maintain
-
-    def _append_block(self, data, parent_id):
-        url = f'https://api.notion.com/v1/blocks/{parent_id}/children'
-        response = requests.patch(url, data=json.dumps(data), headers=self.headers)
-
-        return response
-
-    def _format_header(self, content, type='3'):
-        data = {
-            "children": [{
-                f"heading_{type}": {
-                    "rich_text": [{
-                        "text": {
-                            "content": f"{content}"
-                        }
-                    }]
-                }
-            }]
-        }
-        return data
-
-    def _format_toggle(self, content):
-        data = {
-            "children": [{
-                "toggle": {
-                    "rich_text": [{
-                        "text": {
-                            "content": f"{content}"
-                        }
-                    }]
-                }
-            }]
-        }
-        return data
-
-    def _format_paragraph(self, content, color='default'):
-        data = {
-            "children": [{
-                "paragraph": {
-                    "rich_text": [{
-                        "text": {
-                            "content": f"{content}"
-                        }
-                    }],
-                    "color": f"{color}" # yellow_background for notes
-                }
-            }]
-        }
-        return data
-
-    # In case the books data needs to be retrieved for something
-
-    def get_books_table(self, db_id):
-        pass
