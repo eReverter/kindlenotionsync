@@ -24,6 +24,6 @@ The following code will simply append the highlights and notes from the kindle e
 $ python3 -m kindlenotionsync [-h] [-f KINDLE_FILE] [-c CREDENTIALS] [-p PAGE_ID]
 ```
 
-First, you will need to store your credentials in the `credentials.json` file, as exemplified in the [credentials.json](credentials.json) example file in the repository.
+First, you will need to store your credentials in the `credentials.json` file, as exemplified in the [credentials.json](credentials.json) example file in the repository. In order to get your API key, you first need to create an [integration](https://www.notion.so/my-integrations) in Notion.
 
-Second, you need to fetch the desired page.
+Second, you need to fetch the desired page link.
