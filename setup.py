@@ -11,7 +11,7 @@ setup(
     name="kindlenotionsync",
     version="1.0.0",
     author="Enric Reverter",
-    author_email="e.reverter.lopez@gmail.com",
+    author_email="ereverter.ds@gmail.com",
     description="Export data from <Notes and Highlights> Kindle htmls.",
     long_description=long_description,
     long_description_content_type="text/markdown",
