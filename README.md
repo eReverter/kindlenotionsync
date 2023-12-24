@@ -13,7 +13,7 @@ To streamline this process and save time, I have created a small script that aut
 ## Installation
 
 ```bash
-$ pip install git+https://github.com/eReverter/kindlenotionsync.git
+$ pip install git+https://github.com/ereverter/kindlenotionsync.git
 ```
 
 ## Usage
